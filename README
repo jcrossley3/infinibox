@@ -1,0 +1,4 @@
+TorqueBox configurations for highly available scenarios
+- HA JMS with HornetQ in a symmetric cluster
+- HA Scheduler with Infinispan 
+
