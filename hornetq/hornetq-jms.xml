@@ -2,11 +2,14 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="urn:hornetq /schema/hornetq-jms.xsd">
 
-   <!--    <discovery-group-ref discovery-group-name="my-discovery-group"/> -->
+   <!--    
+      <discovery-group-ref discovery-group-name="my-discovery-group"/> 
+   -->
 
    <connection-factory name="NettyConnectionFactory">
+      <connection-load-balancing-policy-class-name>org.hornetq.api.core.client.loadbalance.RandomConnectionLoadBalancingPolicy</connection-load-balancing-policy-class-name>
       <connectors>
-         <connector-ref connector-name="netty"/>
+         <connector-ref connector-name="netty" backup-connector-name="node1-to-node2"/>
       </connectors>
       <entries>
          <entry name="/ConnectionFactory"/>
@@ -15,27 +18,14 @@
    </connection-factory>
    
    <connection-factory name="NettyThroughputConnectionFactory">
+      <connection-load-balancing-policy-class-name>org.hornetq.api.core.client.loadbalance.RandomConnectionLoadBalancingPolicy</connection-load-balancing-policy-class-name>
       <connectors>
-         <connector-ref connector-name="netty-throughput"/>
+         <connector-ref connector-name="netty-throughput" backup-connector-name="node1-to-node2-throughput"/>
       </connectors>
       <entries>
         <entry name="/ThroughputConnectionFactory"/>
         <entry name="/XAThroughputConnectionFactory"/>
       </entries>
-   </connection-factory>
-
-   <connection-factory name="NettyBridgeConnectionFactory">
-      <connection-load-balancing-policy-class-name>org.hornetq.api.core.client.loadbalance.RandomConnectionLoadBalancingPolicy</connection-load-balancing-policy-class-name>
-      <connectors>
-         <connector-ref connector-name="node1-to-node2" backup-connector-name="netty"/>
-      </connectors>
-   </connection-factory>
-
-   <connection-factory name="NettyBridgeThroughputConnectionFactory">
-      <connection-load-balancing-policy-class-name>org.hornetq.api.core.client.loadbalance.RandomConnectionLoadBalancingPolicy</connection-load-balancing-policy-class-name>
-      <connectors>
-         <connector-ref connector-name="node1-to-node2-throughput" backup-connector-name="netty-throughput"/>
-      </connectors>
    </connection-factory>
 
    <connection-factory name="InVMConnectionFactory">
