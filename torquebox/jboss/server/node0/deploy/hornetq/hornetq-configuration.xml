@@ -19,6 +19,8 @@
    <cluster-user>admin</cluster-user>
    <cluster-password>ADMINPASS</cluster-password>
 
+   <shared-store>false</shared-store>
+
    <log-delegate-factory-class-name>org.hornetq.integration.logging.Log4jLogDelegateFactory</log-delegate-factory-class-name>
 
    <bindings-directory>${jboss.server.data.dir}/hornetq/bindings</bindings-directory>
@@ -31,7 +33,6 @@
    <!-- Default journal min file is 2, increase for higher average msg rates -->
    <journal-min-files>${hornetq.journal.min.files:300}</journal-min-files> 
    
-
    <large-messages-directory>${jboss.server.data.dir}/hornetq/largemessages</large-messages-directory>
 
    <paging-directory>${jboss.server.data.dir}/hornetq/paging</paging-directory>
@@ -40,7 +41,7 @@
       <connector name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5545"/>
+         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </connector>
       
       <connector name="in-vm">
@@ -48,16 +49,16 @@
          <param key="server-id" value="${hornetq.server-id:0}"/>
       </connector>
 
-      <connector name="node2-to-node1">
+      <connector name="node0-to-node1">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
          <param key="port"  value="5445"/>
       </connector>
 
-      <connector name="node2-to-node0">
+      <connector name="node0-to-node2">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5345"/>
+         <param key="port"  value="5545"/>
       </connector>
    </connectors>
 
@@ -65,7 +66,7 @@
       <acceptor name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
+         <param key="port"  value="5345"/>
       </acceptor>
       
       <acceptor name="in-vm">
@@ -81,7 +82,7 @@
        <use-duplicate-detection>true</use-duplicate-detection>
        <forward-when-no-consumers>true</forward-when-no-consumers>
        <max-hops>1</max-hops>
-       <connector-ref connector-name="node2-to-node1" backup-connector-name="node2-to-node0"/>
+       <connector-ref connector-name="node0-to-node1" backup-connector-name="node0-to-node2"/>
     </cluster-connection>
   </cluster-connections>
 

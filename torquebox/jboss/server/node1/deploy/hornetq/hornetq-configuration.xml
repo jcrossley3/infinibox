@@ -35,7 +35,6 @@
    <!-- Default journal min file is 2, increase for higher average msg rates -->
    <journal-min-files>${hornetq.journal.min.files:300}</journal-min-files> 
    
-
    <large-messages-directory>${jboss.server.data.dir}/hornetq/largemessages</large-messages-directory>
 
    <paging-directory>${jboss.server.data.dir}/hornetq/paging</paging-directory>
@@ -47,13 +46,6 @@
          <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </connector>
       
-      <connector name="netty-throughput">
-         <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
-         <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="${hornetq.remoting.netty.batch.port:5455}"/>
-         <param key="batch-delay" value="50"/>
-      </connector>
-
       <connector name="in-vm">
          <factory-class>org.hornetq.core.remoting.impl.invm.InVMConnectorFactory</factory-class>
          <param key="server-id" value="${hornetq.server-id:0}"/>
@@ -65,11 +57,10 @@
          <param key="port"  value="5545"/>
       </connector>
 
-      <connector name="node1-to-node2-throughput">
+      <connector name="node1-to-node0">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5555"/>
-         <param key="batch-delay" value="50"/>
+         <param key="port"  value="5345"/>
       </connector>
    </connectors>
 
@@ -80,38 +71,11 @@
          <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </acceptor>
       
-      <acceptor name="netty-throughput">
-         <factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
-         <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="${hornetq.remoting.netty.batch.port:5455}"/>
-         <param key="batch-delay" value="50"/>
-         <param key="direct-deliver" value="false"/>
-      </acceptor>
-
       <acceptor name="in-vm">
         <factory-class>org.hornetq.core.remoting.impl.invm.InVMAcceptorFactory</factory-class>
         <param key="server-id" value="0"/>
       </acceptor>
    </acceptors>
-
-  <!-- 
-   <broadcast-groups>
-      <broadcast-group name="my-broadcast-group1">
-         <group-address>224.0.0.1</group-address>
-         <group-port>9876</group-port>
-         <broadcast-period>5000</broadcast-period>
-         <connector-ref connector-name="netty"/>
-      </broadcast-group>
-   </broadcast-groups>
-
-   <discovery-groups>
-      <discovery-group name="my-discovery-group">
-         <group-address>224.0.0.1</group-address>
-         <group-port>9876</group-port>
-         <refresh-timeout>10000</refresh-timeout>
-      </discovery-group>
-   </discovery-groups>
-   -->
 
    <cluster-connections>
     <cluster-connection name="my-explicit-cluster">
@@ -120,7 +84,7 @@
        <use-duplicate-detection>true</use-duplicate-detection>
        <forward-when-no-consumers>true</forward-when-no-consumers>
        <max-hops>1</max-hops>
-       <connector-ref connector-name="node1-to-node2" backup-connector-name="netty"/>
+       <connector-ref connector-name="node1-to-node2" backup-connector-name="node1-to-node0"/>
     </cluster-connection>
   </cluster-connections>
 
