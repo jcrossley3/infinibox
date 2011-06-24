@@ -65,7 +65,7 @@
       <acceptor name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
+         <param key="port"  value="5545"/>
       </acceptor>
       
       <acceptor name="in-vm">
@@ -81,7 +81,7 @@
        <use-duplicate-detection>true</use-duplicate-detection>
        <forward-when-no-consumers>true</forward-when-no-consumers>
        <max-hops>1</max-hops>
-       <connector-ref connector-name="node2-to-node1" backup-connector-name="node2-to-node0"/>
+       <connector-ref connector-name="node2-to-node0" backup-connector-name="node2-to-node1"/>
     </cluster-connection>
   </cluster-connections>
 
