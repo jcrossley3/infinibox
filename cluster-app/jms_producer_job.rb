@@ -15,16 +15,10 @@ class JmsProducerJob
     jmx_server ||= JMX::MBeanServer.new
 
     @logger = TorqueBox::Logger.new( self.class )
-
-    jmx_svc_lookup = options[:jmx_svc_lookup] 
-    jmx_as_lookup = options[:jmx_as_lookup]
-    qn = options[:local_queue]
-    cn = options[:cache_name]
-    
-    @jboss_svc = jmx_server[javax.management.ObjectName.new( jmx_svc_lookup )]
-    @jboss_as = jmx_server[javax.management.ObjectName.new( jmx_as_lookup)]
-    @queue = TorqueBox::Messaging::Queue.new( qn )
-    @cache = ActiveSupport::Cache::TorqueBoxStore.new(:name => cn, :mode => :replicated, :sync => false)
+    @jboss_svc = jmx_server[javax.management.ObjectName.new( options[:jmx_svc_lookup] )]
+    @jboss_as = jmx_server[javax.management.ObjectName.new( options[:jmx_as_lookup] )]
+    @queue = TorqueBox::Messaging::Queue.new( options[:local_queue] )
+    @cache = ActiveSupport::Cache::TorqueBoxStore.new(:name => options[:cache_name], :mode => :replicated, :sync => false)
   end
 
   def run

@@ -13,12 +13,8 @@ class ClusterApp
     jmx_server ||= JMX::MBeanServer.new
 
     @logger = TorqueBox::Logger.new( self.class )
-
-    jmx_svc_lookup = options[:jmx_svc_lookup] 
-    jmx_as_lookup = options[:jmx_as_lookup]
-    
-    @jboss_as = jmx_server[javax.management.ObjectName.new( jmx_as_lookup)]
-    @jboss_svc = jmx_server[javax.management.ObjectName.new( jmx_svc_lookup )]
+    @jboss_as = jmx_server[javax.management.ObjectName.new( options[:jmx_as_lookup] )]
+    @jboss_svc = jmx_server[javax.management.ObjectName.new( options[:jmx_svc_lookup] )]
   end
 
   def call(env)
