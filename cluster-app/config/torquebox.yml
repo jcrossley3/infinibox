@@ -1,0 +1,34 @@
+---
+application:
+  root: '/projects/infinibox/cluster-app'
+  env: 'development'
+
+web:
+  context: /cluster-app
+  static: public
+  # host:
+
+pooling:
+  messaging:
+      min: 1
+      max: 5
+
+tasks:
+  Backgroundable:
+    concurrency: 0
+
+queues:
+  /queues/cluster-app/local:
+    durable: true
+
+messaging:
+  /queues/cluster-app/local:
+    JmsConsumerProc:
+       concurrency: 1
+
+jobs:
+  publish_notification:
+    job:         JmsProducerJob
+    cron:        '* */2 * * * ?'
+    description: Deliver message to queue
+
