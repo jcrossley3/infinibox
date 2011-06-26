@@ -21,7 +21,7 @@ class ClusterApp
     sn = @jboss_as.server_name
     svn = @jboss_svc.server_name
 
-    @logger.info "scheduler activated #{self.class.to_s} on node #{sn}"
+    @logger.info "web activated #{self.class.to_s} on node #{sn}"
 
     [200, {"Content-Type" => "text/plain"}, ["JBossAS 6 ServerName => #{sn}, binding => #{svn}"]]
   end
