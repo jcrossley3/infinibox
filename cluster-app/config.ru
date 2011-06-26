@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rack'
-require 'cluster_app.rb.rb'
+require 'cluster_app.rb'
 
 use Rack::ShowExceptions
 use Rack::ContentLength
