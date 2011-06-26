@@ -30,5 +30,4 @@ jobs:
   publish_notification:
     job:         JmsProducerJob
     cron:        '10 * * * * ?'
-    description: Deliver message to queue
-
+    description: Invoke the jms_producer_job.rb every 10 seconds
