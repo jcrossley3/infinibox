@@ -40,7 +40,7 @@
       <connector name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5545"/>
+         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </connector>
       
       <connector name="in-vm">
@@ -51,21 +51,23 @@
       <connector name="node2-to-node1">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5445"/>
+         <param key="port"  value="5545"/>
       </connector>
 
       <connector name="node2-to-node0">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5345"/>
+         <param key="port"  value="5445"/>
       </connector>
    </connectors>
 
    <acceptors>
+      <!-- -Djboss.service.binding.set=ports-01 changes this to 5545 -->
+      <!-- -Djboss.service.binding.set=ports-02 changes this to 5645 -->
       <acceptor name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5545"/>
+         <param key="port"  value="${hornetq.remoting.netty.port:5445}"/>
       </acceptor>
       
       <acceptor name="in-vm">

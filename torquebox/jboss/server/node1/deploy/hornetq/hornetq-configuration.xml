@@ -19,8 +19,6 @@
    <cluster-user>admin</cluster-user>
    <cluster-password>ADMINPASS</cluster-password>
 
-   <shared-store>false</shared-store>
-
    <log-delegate-factory-class-name>org.hornetq.integration.logging.Log4jLogDelegateFactory</log-delegate-factory-class-name>
 
    <bindings-directory>${jboss.server.data.dir}/hornetq/bindings</bindings-directory>
@@ -52,17 +50,18 @@
       <connector name="node1-to-node2">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5545"/>
+         <param key="port"  value="5645"/>
       </connector>
 
       <connector name="node1-to-node0">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>
-         <param key="port"  value="5345"/>
+         <param key="port"  value="5445"/>
       </connector>
    </connectors>
 
    <acceptors>
+      <!-- -Djboss.service.binding.set=ports-01 changes this to 5545 -->
       <acceptor name="netty">
          <factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
          <param key="host"  value="${jboss.bind.address:localhost}"/>

@@ -2,6 +2,8 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="urn:hornetq /schema/hornetq-jms.xsd">
 
+   <!--    <discovery-group-ref discovery-group-name="my-discovery-group"/> -->
+
    <connection-factory name="NettyConnectionFactory">
       <connection-load-balancing-policy-class-name> 
          org.hornetq.api.core.client.loadbalance.RandomConnectionLoadBalancingPolicy
