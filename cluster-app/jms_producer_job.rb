@@ -28,7 +28,7 @@ class JmsProducerJob
   end
 
   def run
-    @logger.info "starting #{self.class.to_s} job on node #{@jboss_as.server_name}"
+    @logger.info "scheduler activated #{self.class.to_s} on node #{@jboss_as.server_name}"
 
     sn = @jboss_as.server_name
  
