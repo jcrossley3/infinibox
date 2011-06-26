@@ -22,9 +22,8 @@ class JmsProducerJob
   end
 
   def run
-    @logger.info "scheduler activated #{self.class.to_s} on node #{@jboss_as.server_name}"
-
     sn = @jboss_as.server_name
+    @logger.info "scheduler activated #{self.class.to_s} on node #{sn}"
  
     if sn == "node0"
       @logger.info "primary node binding => #{@jboss_svc.server_name}"
