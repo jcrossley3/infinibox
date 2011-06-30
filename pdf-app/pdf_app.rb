@@ -26,27 +26,29 @@ class PdfApp
     req = Rack::Request.new(env)
     sn = @jboss_as.server_name
 
-    @logger.info "web activated #{self.class.to_s} on node #{sn}"
+    msg = []
+    msg << "JBossAS 6 running on node #{sn}\n"
 
     if req.path.include? 'hash'
       publish_pdf(true)
+      msg << "Ruby hash with file => #{@pdf_name} published to queue => #{@local_queue}\n"
     else
       publish_pdf(false)
+      msg << "Raw bytes with file => #{@pdf_name} published to queue => #{@local_queue}\n"
     end
 
-    [200, {"Content-Type" => "text/plain"}, ["JBossAS 6 ServerName => #{sn}"]]
+    [200, {"Content-Type" => "text/plain"}, msg]
   end
 
   def publish_pdf(with_hash_flag)
-    fn = File.join('public', 'torquebox-doc.pdf')
-    msg = File.open( fn, 'rb').read {|io| io.read }
+    msg = File.open( @pdf_name, 'rb').read {|io| io.read }
     
-    @logger.info "read #{msg.size} bytes from pdf"
+    @logger.info "read #{msg.size} bytes from file => #{@pdf_name}"
     
     @queue = TorqueBox::Messaging::Queue.new( @local_queue )
 
     if (with_hash_flag == true)
-      @queue.publish( {:msg => msg, :file_name => fn } )
+      @queue.publish( {:msg => msg, :file_name => @pdf_name } )
       @logger.info "hash published to #{@local_queue}"
     else
       @queue.publish( msg )

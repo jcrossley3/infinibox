@@ -3,3 +3,4 @@
 :jmx_as_lookup: 'jboss.system:type=ServerConfig' 
 :local_queue: '/queues/pdf-app/local'
 :cache_name: '//localhost/pdf-app'
+:pdf_name: 'public/torquebox-doc.pdf'
