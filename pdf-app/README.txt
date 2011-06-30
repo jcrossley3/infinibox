@@ -10,3 +10,10 @@ DEPLOY
 ------
 jruby -S rake torquebox:deploy
 
+RUN
+----
+http://localhost:8080/pdf-app/hash  - publish the torquebox-doc.pdf as a ruby hash
+
+http://localhost:8080/pdf-app   - publish the torquebox-doc.pdf as raw bytes
+
+
