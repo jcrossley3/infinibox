@@ -1,0 +1,27 @@
+---
+application:
+  root: '/projects/infinibox/pdf-app'
+  env: 'development'
+
+web:
+  context: /pdf-app
+  static: public
+  # host:
+
+pooling:
+  messaging:
+      min: 1
+      max: 5
+
+tasks:
+  Backgroundable:
+    concurrency: 0
+
+queues:
+  /queues/pdf-app/local:
+    durable: false
+
+messaging:
+  /queues/pdf-app/local:
+    JmsConsumerProc:
+       concurrency: 1

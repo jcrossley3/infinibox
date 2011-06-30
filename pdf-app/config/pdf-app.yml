@@ -1,0 +1,5 @@
+---
+:jmx_svc_lookup: 'jboss.system:service=ServiceBindingManager'
+:jmx_as_lookup: 'jboss.system:type=ServerConfig' 
+:local_queue: '/queues/pdf-app/local'
+:cache_name: '//localhost/pdf-app'
