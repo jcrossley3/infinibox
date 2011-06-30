@@ -18,8 +18,7 @@ class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
 
       pdf_doc = @msg
     
-      fn = File.join('public', 'hash-torquebox-doc.pdf')
-      @logger.info "received #{@file_name} from JMS producer"
+      fn = 'hash-' + @file_name
     else
       pdf_doc = msg
       fn = File.join('public', 'raw-torquebox-doc.pdf')
