@@ -13,7 +13,9 @@ class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
     pdf_doc = nil
 
     if msg.kind_of? Hash
-      update!(msg)
+      # create attr_readers from key,value pairs
+      update!(msg) 
+
       pdf_doc = @msg
     
       fn = File.join('public', 'hash-torquebox-doc.pdf')
