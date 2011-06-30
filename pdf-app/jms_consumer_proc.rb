@@ -1,7 +1,10 @@
 require 'rubygems'
 require 'torquebox-messaging'
+require 'share.rb'
 
 class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
+  include Properties
+
   def initialize(options = {})
     @logger = TorqueBox::Logger.new( self.class )
   end
@@ -10,8 +13,11 @@ class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
     pdf_doc = nil
 
     if msg.kind_of? Hash
-      pdf_doc = msg[:msg]
+      update!(msg)
+      pdf_doc = @msg
+    
       fn = File.join('public', 'hash-torquebox-doc.pdf')
+      @logger.info "received #{@file_name} from JMS producer"
     else
       pdf_doc = msg
       fn = File.join('public', 'raw-torquebox-doc.pdf')

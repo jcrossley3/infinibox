@@ -5,19 +5,21 @@ require 'jmx'
 
 require 'torquebox-messaging'
 require 'torquebox'
+require 'share.rb'
 
 class PdfApp
+  include Properties
+
   java_import javax.management.ObjectName
 
   def initialize
-    options = YAML::load( File.open( File.join('config', 'pdf-app.yml') ))
+    # create attr_readers from yml config
+    load( File.join('config', 'pdf-app.yml') )
 
     jmx_server ||= JMX::MBeanServer.new
-    @jboss_as = jmx_server[javax.management.ObjectName.new( options[:jmx_as_lookup] )]
+    @jboss_as = jmx_server[javax.management.ObjectName.new( @jmx_as_lookup )]
 
     @logger = TorqueBox::Logger.new( self.class )
-    
-    @local_queue = options[:local_queue]
   end
 
   def call(env)
