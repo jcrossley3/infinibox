@@ -27,7 +27,7 @@ class PdfApp
     sn = @jboss_as.server_name
 
     msg = []
-    msg << "JBossAS 6 running on node #{sn}\n"
+    msg << "JBossAS 6 Rack app running on node => #{sn}\n"
 
     if req.path.include? 'hash'
       publish_pdf(true)
