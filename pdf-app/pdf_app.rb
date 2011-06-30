@@ -11,6 +11,7 @@ class PdfApp
 
   def initialize
     options = YAML::load( File.open( File.join('config', 'pdf-app.yml') ))
+
     jmx_server ||= JMX::MBeanServer.new
     @jboss_as = jmx_server[javax.management.ObjectName.new( options[:jmx_as_lookup] )]
 
@@ -25,7 +26,6 @@ class PdfApp
 
     @logger.info "web activated #{self.class.to_s} on node #{sn}"
 
-    @logger.info "path => #{req.path}"
     if req.path.include? 'hash'
       publish_pdf(true)
     else
@@ -44,8 +44,7 @@ class PdfApp
     @queue = TorqueBox::Messaging::Queue.new( @local_queue )
 
     if (with_hash_flag == true)
-      h = {:msg => msg, :file_name => fn}
-      @queue.publish( h )
+      @queue.publish( {:msg => msg, :file_name => fn } )
       @logger.info "hash published to #{@local_queue}"
     else
       @queue.publish( msg )
