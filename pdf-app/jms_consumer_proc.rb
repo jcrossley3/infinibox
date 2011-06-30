@@ -6,9 +6,12 @@ class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
     @logger = TorqueBox::Logger.new( self.class )
   end
 
-  def on_message(data)
-    @logger.info "received message #{data.size} bytes"
-
-    # write to disk
+  def on_message(msg)
+    if msg.kind_of? Hash
+      pdf_doc = msg[:msg]
+      @logger.info "received hash message => #{pdf_doc.size} bytes"
+    else
+      @logger.info "received raw data => #{msg.size} bytes"
+    end
   end
 end
