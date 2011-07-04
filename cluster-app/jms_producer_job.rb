@@ -38,12 +38,12 @@ class JmsProducerJob
       @logger.info "job is currently on #{node}"
     else
       @cache.write(:semaphor, sn, :expires_in => 30.seconds)
- 
-      for idx in 0..4 do
-        h = {:server_name => sn, :idx => idx}
 
-        @queue.publish(h)
-      end
+      files = Dir.glob('/projects/rhq/**/**')
+      @logger.info "files size => #{files.size}"
+
+      h = {:server_name => sn, :files => files}
+      @queue.publish(h)
     end
   rescue Exception => ex
     @logger.error "Unexpected exception => #{ex}"
