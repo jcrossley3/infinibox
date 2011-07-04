@@ -1,0 +1,5 @@
+jms_producer_job.rb
+
+==>  files = Dir.glob('/projects/rhq/**/**')
+
+Set the path used by jms_producer_job.rb to capture a large number of files.
