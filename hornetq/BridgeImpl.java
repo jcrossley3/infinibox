@@ -429,14 +429,14 @@ public class BridgeImpl implements Bridge, SessionFailureListener, SendAcknowled
             }
             else 
             {
-               // We make a copy of the message, then we strip out the unwanted routing id headers and leave
-               // only
-               // the one pertinent for the address node - this is important since different queues on different
-               // nodes could have same queue ids
-               // Note we must copy since same message may get routed to other nodes which require different headers
                message = message.copy();
             }
-   
+  
+            // we strip out the unwanted routing id headers and leave only
+            // the one pertinent for the address node - this is important since different queues on different
+            // nodes could have same queue ids
+            // Note we must copy since same message may get routed to other nodes which require different headers
+
             // TODO - we can optimise this
 
             Set<SimpleString> propNames = new HashSet<SimpleString>(message.getPropertyNames());
