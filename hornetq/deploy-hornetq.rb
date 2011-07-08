@@ -1,5 +1,3 @@
-#!/bin/sh
-
 require 'rubygems'
 require 'fileutils'
 
