@@ -1,0 +1,15 @@
+Fix to allow sending large messages via the bridge between two or more HornetQ servers
+=======================================================================================
+1.  Download HornetQ-2.1.2 Final source from http://anonsvn.jboss.org/repos/hornetq/tags/HornetQ_2_1_2_Final/
+
+2.  Update the source for BridgeImpl.java located in
+  <base install>/src/main/org/hornetq/core/server/cluster/impl/
+
+3.  Build the distribution
+
+  cd <base install>/src
+  ./build.sh
+
+4.  Update the hornetq-2.1.2 Final jars hosted by TorqueBox 1.0.x
+
+    ruby script for step #4 is hornetq-deploy.rb
