@@ -1,0 +1,9 @@
+---
+application:
+  root: '/projects/infinibox/queue-size'
+  env: 'development'
+
+web:
+  context: /queue-size
+  static: public
+  # host:
