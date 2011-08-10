@@ -18,8 +18,7 @@ class QueueSize
     results << "<h3>#{qn}</h3>"
 
     # create query to search the hornetq queue MBeans for the 'cluster-app' MBean
-    query_str = "org.hornetq:module=Core,type=Queue,name=\"jms.queue.#{qn}\",*"
-    my_queue = find( query_str )
+    my_queue = find( "org.hornetq:module=Core,type=Queue,name=\"jms.queue.#{qn}\",*" )
 
     results |= print_table( my_queue )
 
