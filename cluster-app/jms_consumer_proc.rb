@@ -7,6 +7,16 @@ class JmsConsumerProc < TorqueBox::Messaging::MessageProcessor
   end
 
   def on_message(hash)
-    @logger.info "received message from server => #{hash[:server_name]} idx => #{hash[:idx]}"
+    @logger.info "received message from server => #{hash[:server_name]}"
+
+    @files = hash[:files]
+    if @files
+       count = 0
+       @files.each do |fn|
+         @logger.info "file => #{fn}"
+         count += 1
+         break if count > 10
+       end
+    end
   end
 end
