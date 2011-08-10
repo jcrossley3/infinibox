@@ -2,21 +2,18 @@ require 'rubygems'
 require 'rack'
 require 'jmx'
 
-require 'torquebox'
-
 class QueueSize
   java_import javax.management.ObjectName
 
   def initialize
-    @logger = TorqueBox::Logger.new( self.class )
     @jmx_server ||= JMX::MBeanServer.new
-    @hornetq = @jmx_server[ "org.hornetq:module=JMS,type=Server" ]
   end
 
   def call(env)
     results = []
     
     # search the hornetq QueueNames field for 'cluster-app'
+    @hornetq = @jmx_server[ "org.hornetq:module=JMS,type=Server" ]
     qn = @hornetq.queue_names.find_all {|item| item =~ /cluster-app/ }
     results << "<h3>#{qn}</h3>"
 
@@ -45,8 +42,6 @@ class QueueSize
  
   # use jmx_server.query_names to locate a specific Queue MBean 
   def find( query_str )
-    @logger.info "invoked using #{query_str}"
-
     @jmx_server.query_names( query_str ).collect do |name|
       return @jmx_server[ name ]
     end
