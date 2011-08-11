@@ -22,36 +22,29 @@ class QueueSize
   end
 
   def call(env)
-    results = []
-    
-    # search the hornetq QueueNames field for 'cluster-app'
+    # search the HornetQ MBean queue_name attribute for 'cluster-app'
     qn = @hornetq.queue_names.find_all {|item| item =~ /cluster-app/ }
-    results << "<h3>#{qn}</h3>"
 
-    # create query to search the hornetq queue MBeans for the 'cluster-app' MBean
-    my_queue = find( "org.hornetq:module=Core,type=Queue,name=\"jms.queue.#{qn}\",*" )
-
-    results |= print_table( my_queue )
-
-    [200, {"Content-Type" => "text/html"}, results ]
+    [200, {"Content-Type" => "text/html"}, create_html( qn, find( qn )) ]
   end
 
   # dump the Queue MBean attributes to an html table
-  def print_table( mbean )
-    table = []
+  def create_html( queue_name, mbean )
+    out = []
 
-    table << "<table>"
+    out << "<html><body><h3>#{queue_name}</h3>"
+    out << "<table>"
 
-    mbean.attributes.each do |attr|
-      table << "<tr><td>#{attr}</td>"
-      table << "<td>#{mbean[ attr ]}</td></tr>"
-    end
-
-    table << "</table>"
+    mbean.attributes.each {|attr| out << "<tr><td>#{attr}</td>" << "<td>#{mbean[ attr ]}</td></tr>" }
+    
+    out << "</table></body></html>"
   end
  
-  # use jmx_server.query_names to locate a specific Queue MBean 
-  def find( query_str )
+  def find( queue_name )
+    # query to search the MBeanServer for the specific Queue MBean 
+    query_str = "org.hornetq:module=Core,type=Queue,name=\"jms.queue.#{queue_name}\",*" 
+
+    # use jmx_server.query_names to locate a specific Queue MBean 
     @jmx_server.query_names( query_str ).collect do |name|
       return @jmx_server[ name ]
     end
