@@ -32,7 +32,7 @@ class QueueSize
   def create_html( queue_name, m_bean )
     out = []
 
-    out << "<html><body><h3>#{queue_name}</h3>"
+    out << "<html><head><title>#{queue_name}</title></head><body><h3>#{queue_name}</h3>"
     out << "<table>"
 
     m_bean.attributes.each {|attr| out << "<tr><td>#{attr}</td>" << "<td>#{m_bean[ attr ]}</td></tr>" }
