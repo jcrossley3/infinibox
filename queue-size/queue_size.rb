@@ -1,3 +1,14 @@
+#
+# A sample Rack application to illustrate how to use tobias-jmx gem to
+# look up the HornetQ JMS server Managed Bean (MBean)
+#
+# A list of queue names is obtained from the HornetQ MBean
+#
+# A regex expression is used to find a specific queue 
+#
+# A specific queue's MBean is used to find the
+# instantaneous values for the queue's attributes
+#
 require 'rubygems'
 require 'rack'
 require 'jmx'
@@ -7,13 +18,13 @@ class QueueSize
 
   def initialize
     @jmx_server ||= JMX::MBeanServer.new
+    @hornetq = @jmx_server[ "org.hornetq:module=JMS,type=Server" ]
   end
 
   def call(env)
     results = []
     
     # search the hornetq QueueNames field for 'cluster-app'
-    @hornetq = @jmx_server[ "org.hornetq:module=JMS,type=Server" ]
     qn = @hornetq.queue_names.find_all {|item| item =~ /cluster-app/ }
     results << "<h3>#{qn}</h3>"
 
