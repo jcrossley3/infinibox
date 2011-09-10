@@ -39,7 +39,7 @@ end
 # with 'rhc-user-info -l penumbraposts@yahoo.com -p <mypass> -d
 net_http = Net::HTTP
 
-data  = {'rhlogin' => 'penumbraposts@yahoo.com', 'debug' => 'true'}
+data  = {'rhlogin' => 'my_login_name_here', 'debug' => 'true'}
 url   = URI.parse("https://openshift.redhat.com/broker/userinfo")
 json  = RHC::generate_json(data)
 
