@@ -1,18 +1,28 @@
 # JBoss AS 7 configuration for clustering HornetQ 
 
 ## About the HornetQ configuration ##
-Clustered uses UDP-based multicast and will not work on some Cloud (Iaas) providers
+### Clustered ###
+HornetQ configuration uses UDP-based multicast. It may not work on some Cloud (Iaas) providers
 
-The AIO journal type has a dependency on the hornetq native source.  This must be compiled per the HornetQ documentation.
+### ASYNCIO Journaling ###
+The AIO journal type has two dependencies:
+- the hornetq native C language source.  
+- the kernel libaio libraries
 
-Also, the -Djava.library.path=PATH might be necessary, where PATH represents the location of the HornetQ libHornetQAOI32.so or libHornetQAIO64.so shared libraries.
+The native HornetQ AIO libraries must be compiled per the HornetQ documentation.
+I found it was necessary to rename the *libHornetQAIO.so* file to *libHornetQAIO64.so*
 
-### standalone-ha ##
+Update LD_LIBRARY_PATH to include the location of *libHornetQAIO32.so* or *libHornetQAOI64.so*
+
+Alternatively, add *-Djava.library.path=PATH* to *standalone.conf*
+
+### standalone-ha.xml ##
 This is the default JBoss AS 7 standalone-ha.xml, modified to enable HornetQ clustered functionality.  This would be suitable for a multiple machine configuration.
 
-### standalone-ha-server-01 ##
-This is JBoss AS 7 standalone-ha configuration suitable for running two instances of the application server in standalone mode on the same host.  For example:
+### standalone-ha-server-01.xml ##
+This is JBoss AS 7 standalone-ha.xml configuration suitable for running two instances of the application server in standalone mode on the same host.  For example:
 
+>
 > ./standalone.sh -b 192.168.1.65 --server-config standalone-ha-server01.xml
 > 
 > ./standalone.sh -b 192.168.1.66 --server-config standalone-ha-server02.xml
