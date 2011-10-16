@@ -11,6 +11,12 @@ Note that the UDP-based broadcast group IP address and port have been added to t
 >
 
 ### ASYNCIO Journaling ###
+AIO journal type:
+
+>
+> &lt;journal-type>ASYNCIO&lt;/journal-type>
+> 
+
 The AIO journal type has two dependencies:
 
 + the hornetq native C language source.  
