@@ -262,38 +262,22 @@
             </subsystem>
             <subsystem xmlns='urn:jboss:domain:messaging:1.0'>
                 <!-- Global Settings -->
-                <clustered>
-                    true
-                </clustered>
-                <cluster-user>
-                    admin
-                </cluster-user>
-                <cluster-password>
-                    password
-                </cluster-password>
+                <clustered>true</clustered>
+                <cluster-user>admin</cluster-user>
+                <cluster-password>password</cluster-password>
 
                 <!-- Default journal file size is 10Mb, reduced here to 100k for faster first boot -->
-                <journal-file-size>
-                    102400
-                </journal-file-size>
-                <journal-min-files>
-                    300 
-                </journal-min-files>
-                <journal-type>
-                    ASYNCIO 
-                </journal-type>
+                <journal-file-size>102400</journal-file-size>
+                <journal-min-files>300</journal-min-files>
+                <!-- libaio must be installed -->
+                <journal-type>ASYNCIO</journal-type>
                 <!-- enable messaging persistence -->
-                <persistence-enabled>
-                    true
-                </persistence-enabled>
+                <persistence-enabled>true</persistence-enabled>
                
                 <!-- Journal, Bindings, and Paging -->
                 <bindings-directory path="bindings" relative-to="jboss.server.data.dir"/>
-               
                 <journal-directory path="messagingjournal" relative-to="jboss.server.data.dir"/>
-
                 <large-messages-directory path="largemessages" relative-to="jboss.server.data.dir"/>
-
                 <paging-directory path="paging" relative-to="jboss.server.data.dir"/>
 
                 <connectors>
@@ -320,30 +304,30 @@
                     </security-setting>
                 </security-settings>
                 <address-settings>
-                    <!--default for catch all-->
-                    <address-setting match='#'>
-                        <dead-letter-address>
-                            jms.queue.DLQ
-                        </dead-letter-address>
-                        <expiry-address>
-                            jms.queue.ExpiryQueue
-                        </expiry-address>
-                        <redelivery-delay>
-                            0
-                        </redelivery-delay>
-                        <max-size-bytes>
-                            -1
-                        </max-size-bytes>
-                        <page-size-bytes>
-                            10485760
-                        </page-size-bytes>
-                        <message-counter-history-day-limit>
-                            10
-                        </message-counter-history-day-limit>
-                        <address-full-policy>
-                            PAGE
-                        </address-full-policy>
-                    </address-setting>
+                   <!--default for catch all-->
+                   <address-setting match='#'>
+                      <dead-letter-address>
+                          jms.queue.DLQ
+                      </dead-letter-address>
+                      <expiry-address>
+                          jms.queue.ExpiryQueue
+                      </expiry-address>
+                      <redelivery-delay>
+                          0
+                      </redelivery-delay>
+                      <max-size-bytes>
+                          -1
+                      </max-size-bytes>
+                      <page-size-bytes>
+                          10485760
+                      </page-size-bytes>
+                      <message-counter-history-day-limit>
+                          10
+                      </message-counter-history-day-limit>
+                      <address-full-policy>
+                          PAGE
+                      </address-full-policy>
+                   </address-setting>
                 </address-settings>
 
                 <!--JMS Stuff-->
@@ -374,6 +358,7 @@
                         </entries>
                     </pooled-connection-factory>
                 </jms-connection-factories>
+                <!-- sample queue and topic -->
                 <jms-destinations>
                   <jms-queue name="testQueue">
                       <entry name="queue/test"/>
@@ -382,7 +367,7 @@
                       <entry name="topic/test"/>
                   </jms-topic>
                 </jms-destinations>
-                <!-- Clustering -->
+                <!-- UDP-based clustering -->
                 <broadcast-groups>
                     <broadcast-group name='default-broadcast-group'>
                         <group-address>
@@ -448,7 +433,7 @@
                         http://www.osgi.org/javadoc/r4v42/org/osgi/framework/Constants.html#FRAMEWORK_SYSTEMPACKAGES_EXTRA
                     -->
                     <property name='org.jboss.osgi.system.modules'>
-                         org.apache.commons.logging, org.apache.log4j,
+                        org.apache.commons.logging, org.apache.log4j,
                         org.jboss.as.osgi, org.slf4j, 
                     </property>
                     <!--
@@ -456,7 +441,7 @@
                         must export from the current execution environment
                     -->
                     <property name='org.osgi.framework.system.packages.extra'>
-                         org.apache.commons.logging;version=1.1.1,
+                        org.apache.commons.logging;version=1.1.1,
                         org.apache.log4j;version=1.2,
                         org.jboss.as.osgi.service;version=7.0,
                         org.jboss.osgi.deployment.interceptor;version=1.0,
