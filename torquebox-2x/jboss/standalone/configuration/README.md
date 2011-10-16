@@ -6,8 +6,9 @@ HornetQ configuration uses UDP-based multicast. It may not work on some Cloud (I
 
 ### ASYNCIO Journaling ###
 The AIO journal type has two dependencies:
-- the hornetq native C language source.  
-- the kernel libaio libraries
+
++ the hornetq native C language source.  
++ the kernel libaio libraries
 
 The native HornetQ AIO libraries must be compiled per the HornetQ documentation.
 I found it was necessary to rename the *libHornetQAIO.so* file to *libHornetQAIO64.so*
