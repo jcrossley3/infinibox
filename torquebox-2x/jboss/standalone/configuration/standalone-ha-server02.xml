@@ -1,2 +1,2 @@
 copy standalone-ha-server01.xml to standalone-ha-server02.xml
-replace "server-01" with "server-02"
+replace "server01" with "server02"

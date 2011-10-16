@@ -303,7 +303,6 @@
                     </address-full-policy>
                 </address-setting>
             </address-settings>
-            <bindings-directory path="server-01/bindings" relative-to="jboss.server.data.dir"/>
             <connectors>
                 <netty-connector name="netty-connector" socket-binding="messaging"/>
                 <netty-connector name="netty-throughput" socket-binding="messaging-throughput">
@@ -354,6 +353,8 @@
                     <discovery-group-ref discovery-group-name="my-discovery-group"/>
                 </cluster-connection>
             </cluster-connections>
+            <!-- paths -->
+            <bindings-directory path="server-01/bindings" relative-to="jboss.server.data.dir"/>
             <journal-directory path="server-01/journal" relative-to="jboss.server.data.dir"/>
             <large-messages-directory path="server-01/largemessages" relative-to="jboss.server.data.dir"/>
             <paging-directory path="server-01/paging" relative-to="jboss.server.data.dir"/>
