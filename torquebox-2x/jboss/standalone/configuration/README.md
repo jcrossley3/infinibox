@@ -34,15 +34,6 @@ Alternatively, add *-Djava.library.path=PATH* to *standalone.conf*
 This is the default JBoss AS 7 standalone-ha.xml, modified to enable HornetQ clustered functionality.  This would be suitable for a multiple machine configuration.
 
 ### standalone-ha-server-01.xml ##
-This is JBoss AS 7 standalone-ha.xml configuration suitable for running two instances of the application server in standalone mode on the same host.  For example:
-
->
-> ./standalone.sh -b 192.168.1.65 --server-config standalone-ha-server01.xml
-> 
-> ./standalone.sh -b 192.168.1.66 --server-config standalone-ha-server02.xml
->
->
-
 When running two instances of JBoss AS 7 *standalone* (e.g. standalone-ha-server-01 and standalone-ha-server-02) on the same host, you must configure independent paths for the HornetQ journal, largemessages, and paging folders:
 
 >
@@ -51,6 +42,16 @@ When running two instances of JBoss AS 7 *standalone* (e.g. standalone-ha-server
 > &lt;large-messages-directory path="server-01/largemessages" relative-to="jboss.server.data.dir"/>
 >
 > &lt;paging-directory path="server-01/paging" relative-to="jboss.server.data.dir"/>
+>
+>
+
+## Launching JBoss AS 7 ##
+This is JBoss AS 7 standalone-ha.xml configuration suitable for running two instances of the application server in standalone mode on the same host.  For example:
+
+>
+> ./standalone.sh -b 192.168.1.65 --server-config standalone-ha-server01.xml
+> 
+> ./standalone.sh -b 192.168.1.66 --server-config standalone-ha-server02.xml
 >
 >
  
