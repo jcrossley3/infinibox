@@ -4,6 +4,11 @@
 ### Clustered ###
 HornetQ configuration uses UDP-based multicast. It may not work on some Cloud (Iaas) providers
 
+Note that the UDP-based broadcast group IP address and port have been added to the *socket-binding-group*
+> 
+> <socket-binding name="hornetq-broadcast-group" port="0" multicast-address="231.7.7.7" multicast-port="9876"/>
+>
+
 ### ASYNCIO Journaling ###
 The AIO journal type has two dependencies:
 
