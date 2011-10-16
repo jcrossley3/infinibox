@@ -10,7 +10,7 @@ The AIO journal type has two dependencies:
 + the hornetq native C language source.  
 + the kernel libaio libraries
 
-The native HornetQ AIO libraries must be compiled per the HornetQ documentation.
+The native HornetQ AIO libraries must be compiled per the HornetQ documentation: <http://hornetq.sourceforge.net/docs/hornetq-2.0.0.GA/user-manual/en/html/libaio.html> "2.0.0. GA"
 I found it was necessary to rename the *libHornetQAIO.so* file to *libHornetQAIO64.so*
 
 Update LD_LIBRARY_PATH to include the location of *libHornetQAIO32.so* or *libHornetQAOI64.so*
