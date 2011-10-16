@@ -280,16 +280,16 @@
                     300 
                 </journal-min-files>
                 <journal-type>
-                    NIO
+                    ASYNCIO 
                 </journal-type>
                 <!-- disable messaging persistence -->
                 <persistence-enabled>
                     true
                 </persistence-enabled>
                
-                <!-- Journal, Bindings, and Paging  -->
+                <!-- Journal, Bindings, and Paging -->
                 <bindings-directory path="bindings" relative-to="jboss.server.data.dir"/>
-
+               
                 <journal-directory path="messagingjournal" relative-to="jboss.server.data.dir"/>
 
                 <large-messages-directory path="largemessages" relative-to="jboss.server.data.dir"/>
