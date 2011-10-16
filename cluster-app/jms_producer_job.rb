@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'active_support'
-require 'jmx'
+# require 'jmx'
 require 'yaml'
 
 require 'torquebox'
@@ -17,18 +17,18 @@ class JmsProducerJob
 
     @queue = TorqueBox::Messaging::Queue.new( @options[:local_queue] )
 
-    replicated_aync_cache # create cache
+    replicated_async_cache # create cache
   end
 
   def run
-    sn = log_jmx_info
+    sn = "server-name" # log_jmx_info
 
     if replicated_async_cache.exist?(:semaphor)
       @logger.info "job is currently on #{replicated_async_cache.read(:semaphor)}"
     else
       replicated_async_cache.write(:semaphor, sn, :expires_in => 30.seconds)
 
-      files = Dir.glob('/projects/rhq/**/**')
+      files = Dir.glob('/projects/torquebox/**/**')
       @logger.info "files size => #{files.size}"
 
       @queue.publish( {:server_name => sn, :files => files} )
