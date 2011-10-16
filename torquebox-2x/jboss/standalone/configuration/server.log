@@ -1,0 +1,150 @@
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /tools/torquebox/jboss
+
+  JAVA: /usr/lib/jvm/java-1.7.0-openjdk-amd64/bin/java
+
+  JAVA_OPTS: -server -Xms2048m -Xmx2048m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true
+
+=========================================================================
+
+13:01:06,147 INFO  [org.jboss.modules] JBoss Modules version 1.0.2.GA
+13:01:06,572 INFO  [org.jboss.msc] JBoss MSC version 1.0.1.GA
+13:01:06,673 INFO  [org.jboss.as] JBoss AS 7.0.2.Final "Arc" starting
+13:01:08,032 INFO  [org.torquebox.jobs.as] readElement
+13:01:08,033 INFO  [org.torquebox.jobs.as] done readElement
+13:01:08,453 INFO  [org.torquebox.bootstrap] Bootstrapping TorqueBox
+13:01:08,456 INFO  [org.torquebox.bootstrap] ===> /tools/torquebox/jruby
+13:01:08,458 INFO  [org.torquebox.bootstrap] Adding: /tools/torquebox/jruby/lib/jruby.jar
+13:01:08,461 INFO  [org.torquebox.bootstrap] Swizzle: [org.jboss.modules.ResourceLoaderSpec@20fce3ef, org.jboss.modules.ResourceLoaderSpec@3ad870d4]
+13:01:08,470 INFO  [org.torquebox.core.as] Initializing TorqueBox Core Subsystem
+13:01:08,480 INFO  [org.torquebox.cdi.as] Initializing TorqueBox CDI Subsystem
+13:01:08,488 INFO  [org.torquebox.jobs.as] Initializing TorqueBox jobs Subsystem
+13:01:08,496 INFO  [org.torquebox.messaging.as] Initializing TorqueBox Messaging Subsystem
+13:01:08,501 INFO  [org.torquebox.security.as] Initializing TorqueBox Auth Subsystem
+13:01:08,506 INFO  [org.torquebox.services.as] Initializing TorqueBox Services Subsystem
+13:01:08,514 INFO  [org.torquebox.stomp.as] Initializing TorqueBox STOMP Subsystem
+13:01:08,521 INFO  [org.torquebox.web.as] Initializing TorqueBox Web Subsystem
+13:01:08,531 INFO  [org.torquebox.cache.as] Initializing TorqueBox Cache Subsystem
+13:01:08,537 INFO  [org.torquebox.hasingleton.as] Initializing TorqueBox HA-Singleton Subsystem
+13:01:08,641 WARN  [org.jboss.as] No security realm defined for native management service, all access will be unrestricted.
+13:01:08,656 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990)
+13:01:08,659 WARN  [org.jboss.as] No security realm defined for http management service, all access will be unrestricted.
+13:01:08,710 INFO  [org.jboss.as.logging] Removing bootstrap log handlers
+13:01:08,761 INFO  [org.jboss.as.connector.subsystems.datasources] (Controller Boot Thread) Deploying JDBC-compliant driver class org.h2.Driver (version 1.2)
+13:01:08,850 INFO  [org.jboss.as.clustering.infinispan.subsystem] (Controller Boot Thread) Activating Infinispan subsystem.
+13:01:09,123 INFO  [org.jboss.as.clustering.jgroups.subsystem] (Controller Boot Thread) Activating JGroups subsystem.
+13:01:09,208 INFO  [org.jboss.as.osgi] (Controller Boot Thread) JBAS011910: Activating OSGi Subsystem
+13:01:09,248 INFO  [org.jboss.as.naming] (Controller Boot Thread) JBAS011800: Activating Naming Subsystem
+13:01:09,271 INFO  [org.jboss.as.naming] (MSC service thread 1-3) JBAS011802: Starting Naming Service
+13:01:09,284 INFO  [org.jboss.as.security] (Controller Boot Thread) Activating Security Subsystem
+13:01:09,299 INFO  [org.jboss.remoting] (MSC service thread 1-8) JBoss Remoting version 3.2.0.Beta2
+13:01:09,343 INFO  [org.xnio] (MSC service thread 1-8) XNIO Version 3.0.0.Beta3
+13:01:09,375 INFO  [org.xnio.nio] (MSC service thread 1-8) XNIO NIO Implementation Version 3.0.0.Beta3
+13:01:09,685 INFO  [org.apache.catalina.core.AprLifecycleListener] (MSC service thread 1-7) The Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/lib:/usr/local/lib:/tools/libs/hornetq:/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+13:01:09,687 INFO  [org.torquebox.core.as] (Controller Boot Thread) Welcome to TorqueBox AS - http://torquebox.org/
+13:01:09,688 INFO  [org.torquebox.core.as] (Controller Boot Thread)   version........... 2.x.incremental.525
+13:01:09,688 INFO  [org.torquebox.core.as] (Controller Boot Thread)   build............. 525
+13:01:09,688 INFO  [org.torquebox.core.as] (Controller Boot Thread)   revision.......... bae0d16244780eb4ffbfc533defd2240bc937593 +modifications
+13:01:09,689 INFO  [org.torquebox.core.as] (Controller Boot Thread)   built with:
+13:01:09,689 INFO  [org.torquebox.core.as] (Controller Boot Thread)     JBossAS......... 7.0.2.Final
+13:01:09,689 INFO  [org.torquebox.core.as] (Controller Boot Thread)     Quartz.......... 1.8.5
+13:01:09,689 INFO  [org.torquebox.core.as] (Controller Boot Thread)     JRuby........... 1.6.4
+13:01:09,771 INFO  [org.torquebox.stomp.as] (Controller Boot Thread) performBoottime
+13:01:09,780 INFO  [org.torquebox.stomp.as] (Controller Boot Thread) Binding STOMP to stomp
+13:01:09,862 INFO  [org.jboss.as.jmx.JMXConnectorService] (MSC service thread 1-1) Starting remote JMX connector
+13:01:09,911 INFO  [org.jboss.as.ee] (Controller Boot Thread) Activating EE subsystem
+13:01:09,928 INFO  [org.jboss.as.remoting] (MSC service thread 1-6) Listening on /192.168.1.66:9999
+13:01:09,941 INFO  [org.jboss.as.modcluster] (MSC service thread 1-3) Mod_cluster uses default load balancer provider
+13:01:09,997 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-5) Starting Coyote HTTP/1.1 on http--192.168.1.66-8080
+13:01:10,059 INFO  [org.torquebox.core.runtime] (MSC service thread 1-2) Creating ruby runtime (ruby_version: RUBY1_8, compile_mode: JIT, context: global)
+13:01:10,101 INFO  [org.jboss.modcluster.ModClusterService] (MSC service thread 1-3) Initializing mod_cluster 1.1.3.Final
+13:01:10,119 INFO  [org.jboss.modcluster.advertise.impl.AdvertiseListenerImpl] (MSC service thread 1-3) Listening to proxy advertisements on 224.0.1.105:23364
+13:01:10,727 INFO  [org.jboss.as.connector] (MSC service thread 1-5) Starting JCA Subsystem (JBoss IronJacamar 1.0.3.Final)
+13:01:10,895 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) Bound data source [java:jboss/datasources/ExampleDS]
+13:01:11,185 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-4) live server is starting with configuration HornetQ Configuration (clustered=true,backup=false,sharedStore=true,journalDirectory=/tools/torquebox/jboss/standalone/data/server01/journal,bindingsDirectory=/tools/torquebox/jboss/standalone/data/server01/bindings,largeMessagesDirectory=/tools/torquebox/jboss/standalone/data/server01/largemessages,pagingDirectory=/tools/torquebox/jboss/standalone/data/server01/paging)
+13:01:11,187 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-4) Waiting to obtain live lock
+13:01:11,330 INFO  [org.hornetq.core.persistence.impl.journal.JournalStorageManager] (MSC service thread 1-4) Using AIO Journal
+13:01:11,346 INFO  [org.jboss.as.connector.services.ResourceAdapterActivatorService$ResourceAdapterActivator] (MSC service thread 1-5) Registered connection factory java:/JmsXA
+13:01:11,406 INFO  [org.hornetq.ra.HornetQResourceAdapter] (MSC service thread 1-5) HornetQ resource adaptor started
+13:01:11,407 INFO  [org.jboss.as.connector.services.ResourceAdapterActivatorService$ResourceAdapterActivator] (MSC service thread 1-5) IJ020002: Deployed: file://RaActivatorhornetq-ra
+13:01:11,713 INFO  [org.hornetq.core.server.impl.AIOFileLockNodeManager] (MSC service thread 1-4) Waiting to obtain live lock
+13:01:11,714 INFO  [org.hornetq.core.server.impl.AIOFileLockNodeManager] (MSC service thread 1-4) Live Server Obtained live lock
+13:01:13,642 INFO  [org.torquebox.core.runtime] (MSC service thread 1-2) Disabling POSIX ENV passthrough for global runtime (TORQUE-497)
+13:01:14,720 INFO  [org.torquebox.stomp.as] (Controller Boot Thread) execute step
+13:01:19,592 WARN  [org.torquebox.core.runtime] (MSC service thread 1-2) No initializer set for runtime
+13:01:19,616 INFO  [org.torquebox.core.runtime] (MSC service thread 1-2) Created ruby runtime (ruby_version: RUBY1_8, compile_mode: JIT, context: global) in 9.51s
+13:01:20,085 INFO  [org.hornetq.core.remoting.impl.netty.NettyAcceptor] (MSC service thread 1-4) Started Netty Acceptor version 3.2.3.Final-r${buildNumber} 192.168.1.66:5445 for CORE protocol
+13:01:20,089 INFO  [org.hornetq.core.remoting.impl.netty.NettyAcceptor] (MSC service thread 1-4) Started Netty Acceptor version 3.2.3.Final-r${buildNumber} 192.168.1.66:5455 for CORE protocol
+13:01:20,096 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-4) Server is now live
+13:01:20,102 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-4) HornetQ Server version 2.2.7.Final (HQ_2_2_7_FINAL_AS7, 121) [86fab1ca-f80b-11e0-9360-68a3c423b06c] started
+13:01:20,158 INFO  [org.jboss.as.messaging.jms.AS7BindingRegistry] (MSC service thread 1-5) Bound messaging object to jndi name java:/RemoteConnectionFactory
+13:01:20,160 INFO  [org.jboss.as.messaging.jms.AS7BindingRegistry] (MSC service thread 1-1) Bound messaging object to jndi name java:/ConnectionFactory
+13:01:20,164 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-3) trying to deploy queue jms.queue.testQueue
+13:01:20,243 INFO  [org.jboss.as.messaging.jms.AS7BindingRegistry] (MSC service thread 1-3) Bound messaging object to jndi name java:/queue/test
+13:01:20,244 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-6) trying to deploy queue jms.topic.testTopic
+13:01:20,275 INFO  [org.jboss.as.messaging.jms.AS7BindingRegistry] (MSC service thread 1-6) Bound messaging object to jndi name java:/topic/test
+13:01:20,311 INFO  [org.jboss.as.deployment] (MSC service thread 1-3) Started FileSystemDeploymentService for directory /tools/torquebox/jboss/standalone/deployments/server01
+13:01:20,336 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.2.Final "Arc" started in 14648ms - Started 118 of 205 services (87 services are passive or on-demand)
+13:01:20,354 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) Starting deployment of "cluster-app-knob.yml"
+13:01:20,645 ERROR [stderr] (MSC service thread 1-6) ADJUSTER BEFORE stompAppMetaData=null
+13:01:20,731 INFO  [org.torquebox.cache.as] (MSC service thread 1-6) Adding dependency on: org.torquebox.cache:main to deployment "cluster-app-knob.yml"
+13:01:20,736 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) added javax.persistence.api dependency to cluster-app-knob.yml
+13:01:20,820 INFO  [org.torquebox.messaging.tasks] (MSC service thread 1-2) Deploying task queue: /queues/torquebox/cluster-app/tasks/torquebox_backgroundable
+13:01:20,837 INFO  [org.torquebox.jobs] (MSC service thread 1-8) Installing Job Scheduler: service jboss.deployment.unit."cluster-app-knob.yml".jobs
+13:01:21,126 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] (MSC service thread 1-5) trying to deploy queue jms.queue./queues/cluster-app/local
+13:01:21,135 INFO  [org.torquebox.core.runtime.SharedRubyRuntimePool] (MSC service thread 1-1) Starting web runtime pool asynchronously
+13:01:21,146 INFO  [org.jgroups.JChannel] (MSC service thread 1-2) JGroups version: 2.12.1.3.Final
+13:01:21,140 INFO  [org.torquebox.core.as] (MSC service thread 1-3) Completely deployed: cluster-app-knob.yml in 656ms
+13:01:21,154 WARN  [org.torquebox.core.as] (MSC service thread 1-3) The deployment 'cluster-app-knob.yml' generated the following deprecation warnings:
+13:01:21,155 WARN  [org.torquebox.core.as] (MSC service thread 1-3) WARNING: Setting the application environment via the 'application:' section is deprecated. Set RAILS_ROOT or RACK_ROOT via the 'environment:' section instead.
+13:01:21,174 INFO  [org.torquebox.core.runtime.SharedRubyRuntimePool] (Thread-15) Pushing: org.jboss.as.ee.naming.InjectedEENamespaceContextSelector@55cb1256
+13:01:21,175 INFO  [org.torquebox.core.runtime] (Thread-15) Creating ruby runtime (ruby_version: RUBY1_8, compile_mode: JIT, app: cluster-app, context: web)
+13:01:21,211 INFO  [org.jboss.as.messaging.jms.AS7BindingRegistry] (MSC service thread 1-5) Bound messaging object to jndi name java:/queues/cluster-app/local
+13:01:21,651 INFO  [org.quartz.core.SchedulerSignalerImpl] (MSC service thread 1-8) Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+13:01:21,678 INFO  [org.quartz.core.QuartzScheduler] (MSC service thread 1-8) Quartz Scheduler v.1.8.5 created.
+13:01:21,686 INFO  [org.quartz.simpl.RAMJobStore] (MSC service thread 1-8) RAMJobStore initialized.
+13:01:21,688 INFO  [org.quartz.core.QuartzScheduler] (MSC service thread 1-8) Scheduler meta-data: Quartz Scheduler (v1.8.5) 'JobScheduler$cluster-app-knob.yml' with instanceId 'penumbra-Satellite-L6551318784481551'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 3 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+13:01:21,689 INFO  [org.quartz.impl.StdSchedulerFactory] (MSC service thread 1-8) Quartz scheduler 'JobScheduler$cluster-app-knob.yml' initialized from an externally provided properties instance.
+13:01:21,689 INFO  [org.quartz.impl.StdSchedulerFactory] (MSC service thread 1-8) Quartz scheduler version: 1.8.5
+13:01:21,689 INFO  [org.quartz.core.QuartzScheduler] (MSC service thread 1-8) JobFactory set to: org.torquebox.jobs.RubyJobProxyFactory@18484cf8
+13:01:21,690 INFO  [org.quartz.core.QuartzScheduler] (MSC service thread 1-8) Scheduler JobScheduler$cluster-app-knob.yml_$_penumbra-Satellite-L6551318784481551 started.
+13:01:21,749 INFO  [org.torquebox.core.runtime] (Thread-15) Disabling POSIX ENV passthrough for web runtime (TORQUE-497)
+13:01:21,826 WARN  [org.infinispan.config.ConfigurationValidatingVisitor] (MSC service thread 1-7) ISPN000152: Passivation configured without a valid eviction policy. This could mean that the cache store will never get used unless code calls Cache.evict() manually.
+13:01:22,095 WARNING [org.jgroups.protocols.UDP] (MSC service thread 1-2) send buffer of socket java.net.DatagramSocket@4a6686cf was set to 640KB, but the OS only allocated 131.07KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+13:01:22,096 WARNING [org.jgroups.protocols.UDP] (MSC service thread 1-2) receive buffer of socket java.net.DatagramSocket@4a6686cf was set to 20MB, but the OS only allocated 131.07KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+13:01:22,096 WARNING [org.jgroups.protocols.UDP] (MSC service thread 1-2) send buffer of socket java.net.MulticastSocket@111ca632 was set to 640KB, but the OS only allocated 131.07KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+13:01:22,097 WARNING [org.jgroups.protocols.UDP] (MSC service thread 1-2) receive buffer of socket java.net.MulticastSocket@111ca632 was set to 25MB, but the OS only allocated 131.07KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+13:01:22,112 INFO  [stdout] (MSC service thread 1-2) 
+13:01:22,122 INFO  [stdout] (MSC service thread 1-2) -------------------------------------------------------------------
+13:01:22,126 INFO  [stdout] (MSC service thread 1-2) GMS: address=192.168.1.66:55200, cluster=cluster-app-knob.yml, physical address=192.168.1.66:55200
+13:01:22,128 INFO  [stdout] (MSC service thread 1-2) -------------------------------------------------------------------
+13:01:22,355 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (MSC service thread 1-7) ISPN000078: Starting JGroups Channel
+13:01:22,378 INFO  [org.jgroups.JChannel] (MSC service thread 1-7) JGroups version: 2.12.1.3.Final
+13:01:22,772 INFO  [stdout] (MSC service thread 1-7) 
+13:01:22,773 INFO  [stdout] (MSC service thread 1-7) -------------------------------------------------------------------
+13:01:22,773 INFO  [stdout] (MSC service thread 1-7) GMS: address=penumbra-satellite-l655-4044, cluster=web, physical address=192.168.1.66:55200
+13:01:22,773 INFO  [stdout] (MSC service thread 1-7) -------------------------------------------------------------------
+13:01:23,024 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (MSC service thread 1-7) ISPN000094: Received new cluster view: [penumbra-satellite-l655-34751|1] [penumbra-satellite-l655-34751, penumbra-satellite-l655-4044]
+13:01:23,220 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (MSC service thread 1-7) ISPN000079: Cache local address is penumbra-satellite-l655-4044, physical addresses are [192.168.1.66:55200]
+13:01:23,221 INFO  [org.infinispan.factories.GlobalComponentRegistry] (MSC service thread 1-7) ISPN000128: Infinispan version: Infinispan 'Pagoa' 5.0.1.FINAL
+13:01:23,360 INFO  [org.infinispan.jmx.CacheJmxRegistration] (MSC service thread 1-7) ISPN000031: MBeans were successfully registered to the platform mbean server.
+13:01:23,362 INFO  [org.infinispan.remoting.rpc.RpcManagerImpl] (MSC service thread 1-7) ISPN000074: Trying to fetch state from penumbra-satellite-l655-34751
+13:01:23,494 INFO  [org.infinispan.remoting.rpc.RpcManagerImpl] (MSC service thread 1-7) ISPN000076: Successfully retrieved and applied state from penumbra-satellite-l655-34751
+13:01:23,497 INFO  [org.infinispan.factories.ComponentRegistry] (MSC service thread 1-7) ISPN000128: Infinispan version: Infinispan 'Pagoa' 5.0.1.FINAL
+13:01:23,500 INFO  [org.jboss.as.clustering.infinispan.subsystem] (MSC service thread 1-7) Started repl cache from web container
+13:01:23,587 INFO  [org.jboss.as.clustering.CoreGroupCommunicationService.web] (MSC service thread 1-4) Number of cluster members: 2
+13:01:23,735 INFO  [org.jboss.web] (MSC service thread 1-4) registering web context: /cluster-app
+13:01:23,807 INFO  [org.jboss.as.server.controller] (DeploymentScanner-threads - 2) Deployed "cluster-app-knob.yml"
+13:01:25,777 INFO  [org.torquebox.core.runtime] (Thread-15) Created ruby runtime (ruby_version: RUBY1_8, compile_mode: JIT, app: cluster-app, context: web) in 4.6s
+13:01:25,777 INFO  [org.torquebox.core.runtime.SharedRubyRuntimePool] (Thread-15) Popping
+
