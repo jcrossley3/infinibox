@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!--  build/assembly/lib/assembly_tool.rb -->
+
 <server name="penumbra-Satellite-L655" xmlns="urn:jboss:domain:1.0">
     <extensions>
         <extension module="org.jboss.as.clustering.infinispan"/>
@@ -8,7 +8,6 @@
         <extension module="org.jboss.as.deployment-scanner"/>
         <extension module="org.jboss.as.ee"/>
         <extension module="org.jboss.as.ejb3"/>
-        <extension module="org.jboss.as.jacorb"/>
         <extension module="org.jboss.as.jaxrs"/>
         <extension module="org.jboss.as.jmx"/>
         <extension module="org.jboss.as.jpa"/>
@@ -35,6 +34,7 @@
         <extension module="org.torquebox.stomp"/>
         <extension module="org.torquebox.web"/>
         <extension module="org.torquebox.cache"/>
+        <extension module="org.torquebox.hasingleton"/>
     </extensions>
     <management>
         <security-realms>
@@ -62,7 +62,7 @@
                 <formatter>
                     <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
                 </formatter>
-                <file relative-to="jboss.server.log.dir" path="server-01/server.log"/>
+                <file relative-to="jboss.server.log.dir" path="server01/server.log"/>
                 <suffix value=".yyyy-MM-dd"/>
                 <append value="true"/>
             </periodic-rotating-file-handler>
@@ -122,10 +122,14 @@
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:1.0">
-            <deployment-scanner name="default" path="deployments/server-01" scan-enabled="true" scan-interval="5000" relative-to="jboss.server.base.dir" deployment-timeout="60"/>
+            <deployment-scanner name="default" path="deployments/server01" scan-enabled="true" scan-interval="5000" relative-to="jboss.server.base.dir" deployment-timeout="60"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:ejb3:1.1" lite="true">
+        <subsystem xmlns="urn:jboss:domain:ejb3:1.1">
+            <mdb>
+                <resource-adapter-ref resource-adapter-name="hornetq-ra"/>
+                <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
+            </mdb>
             <session-bean>
                 <stateless>
                     <bean-instance-pool-ref pool-name="slsb-strict-max-pool"/>
@@ -134,8 +138,13 @@
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="slsb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
+                    <strict-max-pool name="mdb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
                 </bean-instance-pools>
             </pools>
+            <timer-service>
+                <thread-pool core-threads="1" max-threads="4"/>
+                <data-store path="timer-service-data" relative-to="jboss.server.data.dir"/>
+            </timer-service>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:infinispan:1.0" default-cache-container="cluster">
             <cache-container name="cluster" default-cache="default">
@@ -303,6 +312,7 @@
                     </address-full-policy>
                 </address-setting>
             </address-settings>
+            <bindings-directory path="server01/bindings" relative-to="jboss.server.data.dir"/>
             <connectors>
                 <netty-connector name="netty-connector" socket-binding="messaging"/>
                 <netty-connector name="netty-throughput" socket-binding="messaging-throughput">
@@ -353,11 +363,9 @@
                     <discovery-group-ref discovery-group-name="my-discovery-group"/>
                 </cluster-connection>
             </cluster-connections>
-            <!-- paths -->
-            <bindings-directory path="server-01/bindings" relative-to="jboss.server.data.dir"/>
-            <journal-directory path="server-01/journal" relative-to="jboss.server.data.dir"/>
-            <large-messages-directory path="server-01/largemessages" relative-to="jboss.server.data.dir"/>
-            <paging-directory path="server-01/paging" relative-to="jboss.server.data.dir"/>
+            <journal-directory path="server01/journal" relative-to="jboss.server.data.dir"/>
+            <large-messages-directory path="server01/largemessages" relative-to="jboss.server.data.dir"/>
+            <paging-directory path="server01/paging" relative-to="jboss.server.data.dir"/>
             <security-settings>
                 <security-setting match="#">
                     <permission type="send" roles="guest"/>
@@ -411,23 +419,23 @@
             <properties>
                 <property name="org.jboss.osgi.system.modules">
                     org.apache.commons.logging,
-                                                                                                                    org.apache.log4j,
-                                                                                                                    org.jboss.as.osgi,
-                                                                                                                    org.slf4j,
+                                                                                                                                                            org.apache.log4j,
+                                                                                                                                                            org.jboss.as.osgi,
+                                                                                                                                                            org.slf4j,
                 </property>
                 <property name="org.osgi.framework.startlevel.beginning">
                     1
                 </property>
                 <property name="org.osgi.framework.system.packages.extra">
                     org.apache.commons.logging;version=1.1.1,
-                                                                                                                    org.apache.log4j;version=1.2,
-                                                                                                                    org.jboss.as.osgi.service;version=7.0,
-                                                                                                                    org.jboss.osgi.deployment.interceptor;version=1.0,
-                                                                                                                    org.jboss.osgi.spi.capability;version=1.0,
-                                                                                                                    org.jboss.osgi.spi.util;version=1.0,
-                                                                                                                    org.jboss.osgi.testing;version=1.0,
-                                                                                                                    org.jboss.osgi.vfs;version=1.0,
-                                                                                                                    org.slf4j;version=1.5.10,
+                                                                                                                                                            org.apache.log4j;version=1.2,
+                                                                                                                                                            org.jboss.as.osgi.service;version=7.0,
+                                                                                                                                                            org.jboss.osgi.deployment.interceptor;version=1.0,
+                                                                                                                                                            org.jboss.osgi.spi.capability;version=1.0,
+                                                                                                                                                            org.jboss.osgi.spi.util;version=1.0,
+                                                                                                                                                            org.jboss.osgi.testing;version=1.0,
+                                                                                                                                                            org.jboss.osgi.vfs;version=1.0,
+                                                                                                                                                            org.slf4j;version=1.5.10,
                 </property>
             </properties>
             <modules>
@@ -484,6 +492,16 @@
             </virtual-server>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-core:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-cdi:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-jobs:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-messaging:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-security:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-services:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-stomp:1.0" socket-binding="stomp"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-web:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-cache:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:torquebox-hasingleton:1.0"/>
     </profile>
     <interfaces>
         <interface name="management">
@@ -512,6 +530,7 @@
         <socket-binding name="remoting" port="4447"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
+        <socket-binding name="stomp" port="8675"/>
         <socket-binding name="hornetq-broadcast-group" port="0" multicast-address="231.7.7.7" multicast-port="9876"/>
     </socket-binding-group>
 </server>
