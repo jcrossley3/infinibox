@@ -271,7 +271,7 @@
                 300
             </journal-min-files>
             <acceptors>
-                <netty-acceptor name="netty" socket-binding="messaging"/>
+                <netty-acceptor name="netty-acceptor" socket-binding="messaging"/>
                 <netty-acceptor name="netty-throughput" socket-binding="messaging-throughput">
                     <param key="batch-delay" value="50"/>
                     <param key="direct-deliver" value="false"/>
@@ -312,7 +312,7 @@
                 <in-vm-connector name="in-vm" server-id="0"/>
             </connectors>
             <broadcast-groups>
-                <broadcast-group name="my-broadcast-group">
+                <broadcast-group name="hornetq-broadcast-group">
                     <group-address>
                         231.7.7.7
                     </group-address>
