@@ -17,7 +17,8 @@ Update LD_LIBRARY_PATH to include the location of *libHornetQAIO32.so* or *libHo
 
 Alternatively, add *-Djava.library.path=PATH* to *standalone.conf*
 
-### standalone-ha.xml ##
+## About the XML Configuration Files ##
+### standalone-ha.xml ###
 This is the default JBoss AS 7 standalone-ha.xml, modified to enable HornetQ clustered functionality.  This would be suitable for a multiple machine configuration.
 
 ### standalone-ha-server-01.xml ##
