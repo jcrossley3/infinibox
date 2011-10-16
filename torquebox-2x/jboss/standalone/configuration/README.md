@@ -43,3 +43,12 @@ This is JBoss AS 7 standalone-ha.xml configuration suitable for running two inst
 >
 >
 
+When running two instances of standalone-ha-server*##* on the same host, you must configure independent paths for the HornetQ journal, largemessages, and paging folders:
+
+>
+> &lt;journal-directory path="server-01/journal" relative-to="jboss.server.data.dir"/>
+> &lt;large-messages-directory path="server-01/largemessages" relative-to="jboss.server.data.dir"/>
+> &lt;paging-directory path="server-01/paging" relative-to="jboss.server.data.dir"/>
+>
+>
+ 
