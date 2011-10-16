@@ -54,3 +54,15 @@ When running two instances of JBoss AS 7 *standalone* (e.g. standalone-ha-server
 >
 >
 
+## Running JBoss AS 7 Standalone Instances ##
+To run standalone-ha-server01.xml and standalone-ha-server02.xml on the same host, first configure an IP alias using the instructions here: <http://cr.yp.to/djbdns/ifconfig.html>
+
+If the IP addresses specified were 192.168.1.65 and 192.168.1.66, then JBoss AS 7 would be started using the following commands:
+
+>
+> ./standalone.sh -b 192.168.1.65 --server-config standalone-ha-server01.xml
+> 
+> ./standalone.sh -b 192.168.1.66 --server-config standalone-ha-server02.xml
+>
+>
+
