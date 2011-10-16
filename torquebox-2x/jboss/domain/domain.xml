@@ -282,7 +282,7 @@
                 <journal-type>
                     ASYNCIO 
                 </journal-type>
-                <!-- disable messaging persistence -->
+                <!-- enable messaging persistence -->
                 <persistence-enabled>
                     true
                 </persistence-enabled>
