@@ -269,7 +269,7 @@
                 <!-- Default journal file size is 10Mb, reduced here to 100k for faster first boot -->
                 <journal-file-size>102400</journal-file-size>
                 <journal-min-files>300</journal-min-files>
-                <!-- libaio must be installed -->
+                <!-- libaio must be installed (e.g. apt-get install libaio-dev -->
                 <journal-type>ASYNCIO</journal-type>
                 <!-- enable messaging persistence -->
                 <persistence-enabled>true</persistence-enabled>
