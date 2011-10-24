@@ -26,7 +26,7 @@ class JmsProducerJob
   end
 
   def run
-    sn = log_jmx_info
+    sn = log_server_name
 
     if replicated_async_cache.exist?(:semaphor)
       @logger.info "job is currently on #{replicated_async_cache.read(:semaphor)}"
@@ -47,15 +47,15 @@ class JmsProducerJob
     @cache ||= ActiveSupport::Cache::TorqueBoxStore.new(:name => @options[:cache_name], :mode => :replicated, :sync => false)
   end
   
-  def log_jmx_info
-    sn = server_name
-    @logger.info "scheduler activated #{self.class.to_s} on node #{sn}"
+  def log_server_name
+    sn = server_name.chop
+    @logger.info "scheduler activated #{self.class.to_s} on #{sn}"
  
     # TODO: remove use of hard-coded primary node name
-    if sn == @options[:data_dir]
-      @logger.info "primary node binding => "
+    if @options[:data_dir] =~ /standalone/
+      @logger.info "primary node binding => #{sn}"
     else
-      @logger.info "secondary node #{sn} => binding "
+      @logger.info "secondary node binding => #{sn}"
       # wait for primary node to outpace this node
       sleep( rand( 10 ) )
     end
