@@ -2,3 +2,4 @@
 :jmx_as_lookup: 'jboss.ws:service=ServerConfig' 
 :local_queue: '/queues/cluster-app/local'
 :cache_name: '//localhost/cluster-app'
+:search_path: '/projects/torquebox/**/**'

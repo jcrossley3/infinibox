@@ -4,11 +4,14 @@ require 'yaml'
 
 require 'torquebox'
 require 'torquebox-messaging'
-require 'jboss-logging-3.0.1.GA.jar'   # added for 2.x build 552
-require 'torquebox-cache'              # added for 2.x build 552
+require 'jboss-logging-3.0.1.GA.jar'   # added to fix 2.x build 552
+require 'torquebox-cache'              # added per 2.x changes
 require 'active_support/cache/torque_box_store'
 
+# in domain mode, http://localhost:8090/jboss-osgi/config
+# contains a system property: jboss.node.name = server-01
 require 'jmx_helper'
+
 class JmsProducerJob
   include JmxHelper
 
@@ -30,9 +33,10 @@ class JmsProducerJob
     else
       replicated_async_cache.write(:semaphor, sn, :expires_in => 30.seconds)
 
-      files = Dir.glob('/projects/torquebox/**/**')
+      files = Dir.glob( @options[:search_path] )
       @logger.info "files size => #{files.size}"
 
+      # marshal_load not found exception see on server.log
       @queue.publish( {:server_name => sn, :files => files}, :encoding => :marshal)
     end
   rescue Exception => ex
