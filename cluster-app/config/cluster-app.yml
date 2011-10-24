@@ -1,5 +1,4 @@
 ---
-:jmx_svc_lookup: 'jboss.system:service=ServiceBindingManager'
-:jmx_as_lookup: 'jboss.system:type=ServerConfig' 
+:jmx_as_lookup: 'jboss.ws:service=ServerConfig' 
 :local_queue: '/queues/cluster-app/local'
 :cache_name: '//localhost/cluster-app'
