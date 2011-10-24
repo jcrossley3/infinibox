@@ -33,7 +33,7 @@ class JmsProducerJob
       files = Dir.glob('/projects/torquebox/**/**')
       @logger.info "files size => #{files.size}"
 
-      @queue.publish( {:server_name => sn, :files => files} )
+      @queue.publish( {:server_name => sn, :files => files}, :encoding => :marshal)
     end
   rescue Exception => ex
     @logger.error "Unexpected exception => #{ex}"
