@@ -54,10 +54,14 @@ class JmsProducerJob
     # TODO: remove use of hard-coded primary node name
     if @options[:data_dir] =~ /standalone/
       @logger.info "primary node binding => #{sn}"
-    else
-      @logger.info "secondary node binding => #{sn}"
-      # wait for primary node to outpace this node
-      sleep( rand( 10 ) )
+    elsif @options[:data_dir] =~ /domain/
+      if sn =~ /server-01/
+        @logger.info "primary node binding => #{sn}"
+      else
+        @logger.info "secondary node binding => #{sn}"
+        # wait for primary node to outpace this node
+        sleep( rand( 10 ) )
+      end
     end
 
     sn
