@@ -52,7 +52,7 @@ class JmsProducerJob
     @logger.info "scheduler activated #{self.class.to_s} on node #{sn}"
  
     # TODO: remove use of hard-coded primary node name
-    if sn == "/tools/torquebox/jboss/domain/servers/server-01/data"
+    if sn == @options[:data_dir]
       @logger.info "primary node binding => "
     else
       @logger.info "secondary node #{sn} => binding "

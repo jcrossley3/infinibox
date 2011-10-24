@@ -3,3 +3,4 @@
 :local_queue: '/queues/cluster-app/local'
 :cache_name: '//localhost/cluster-app'
 :search_path: '/projects/torquebox/**/**'
+:data_dir: '/tools/torquebox/jboss/standalone/data'
