@@ -48,7 +48,7 @@ class JmsProducerJob
   end
   
   def log_server_name
-    sn = server_name.chop
+    sn = server_name.to_s
     @logger.info "scheduler activated #{self.class.to_s} on #{sn}"
  
     # TODO: remove use of hard-coded primary node name
