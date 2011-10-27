@@ -1,0 +1,10 @@
+source 'http://torquebox.org/2x/builds/LATEST/gem-repo/'
+source :rubygems
+
+gem 'rake'
+gem 'i18n'
+gem 'jmx'
+gem 'torquebox', '~> 2.x.incremental'
+gem 'torquebox-core', '~> 2.x.incremental'
+gem 'torquebox-messaging', '~> 2.x.incremental'
+gem 'activesupport'

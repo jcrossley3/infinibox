@@ -3,8 +3,9 @@ require 'active_support'
 require 'yaml'
 
 require 'torquebox'
+require 'torquebox-core'
 require 'torquebox-messaging'
-require 'jboss-logging-3.0.1.GA.jar'   # added to fix 2.x build 552
+#require 'jboss-logging-3.0.1.GA.jar'   # added to fix 2.x build 552
 require 'torquebox-cache'              # added per 2.x changes
 require 'active_support/cache/torque_box_store'
 
@@ -16,7 +17,9 @@ class JmsProducerJob
   include JmxHelper
 
   def initialize
-    @options = YAML::load( File.open( File.join('config', 'cluster-app.yml') ))
+    @@primary_node = false
+
+    @options = YAML::load( File.open( File.join('/projects/infinibox/cluster-app/config', 'cluster-app.yml') ))
 
     @logger = TorqueBox::Logger.new( self.class )
 
@@ -31,6 +34,10 @@ class JmsProducerJob
     if replicated_async_cache.exist?(:semaphor)
       @logger.info "job is currently on #{replicated_async_cache.read(:semaphor)}"
     else
+      @logger.info "cluster-app cache does not contain a :semaphor entry"
+    end
+
+    if @@primary_node == true
       replicated_async_cache.write(:semaphor, sn, :expires_in => 30.seconds)
 
       files = Dir.glob( @options[:search_path] )
@@ -57,10 +64,10 @@ class JmsProducerJob
     elsif @options[:data_dir] =~ /domain/
       if sn =~ /server-01/
         @logger.info "primary node binding => #{sn}"
+        @@primary_node = true
       else
         @logger.info "secondary node binding => #{sn}"
-        # wait for primary node to outpace this node
-        sleep( rand( 10 ) )
+        @@primary_node = false
       end
     end
 
