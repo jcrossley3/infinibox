@@ -8,7 +8,7 @@ class ClusterApp
   include JmxHelper
 
   def initialize
-    @options = YAML::load( File.open( File.join('config', 'cluster-app.yml') ))
+    @options = YAML::load( File.open( File.join('/projects/infinibox/cluster-app/config', 'cluster-app.yml') ))
 
     @logger = TorqueBox::Logger.new( self.class )
   end
