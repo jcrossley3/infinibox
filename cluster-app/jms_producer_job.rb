@@ -25,20 +25,21 @@ class JmsProducerJob
 
     @queue = TorqueBox::Messaging::Queue.new( @options[:local_queue] )
 
-    replicated_async_cache # create cache
+    replicated_sync_cache # create cache
   end
 
   def run
     sn = log_server_name
 
-    if replicated_async_cache.exist?(:semaphor)
-      @logger.info "job is currently on #{replicated_async_cache.read(:semaphor)}"
+    keys = replicated_sync_cache.keys
+    if keys.include? :semaphor.to_s
+      @logger.info "job is currently on #{replicated_sync_cache.get(:semaphor)}"
     else
       @logger.info "cluster-app cache does not contain a :semaphor entry"
     end
 
     if @@primary_node == true
-      replicated_async_cache.write(:semaphor, sn, :expires_in => 30.seconds)
+      replicated_sync_cache.put(:semaphor.to_s, sn, :expires_in => 30.seconds)
 
       files = Dir.glob( @options[:search_path] )
       @logger.info "files size => #{files.size}"
@@ -50,8 +51,15 @@ class JmsProducerJob
     @logger.error "Unexpected exception => #{ex}"
   end
 
-  def replicated_async_cache
-    @cache ||= ActiveSupport::Cache::TorqueBoxStore.new(:name => @options[:cache_name], :mode => :replicated, :sync => false)
+  def replicated_sync_cache
+    @cache = TorqueBox::Infinispan::Cache.new( :name => @options[:cache_name],
+                                               :mode => :replicated,
+                                               :sync => true,
+                                               :transaction_mode => false )
+    #@cache ||= ActiveSupport::Cache::TorqueBoxStore.new(:name => @options[:cache_name], 
+    #                                                    :mode => :replicated, 
+    #                                                    :sync => true, 
+    #                                                     :transaction_mode => :non_transactional)
   end
   
   def log_server_name
