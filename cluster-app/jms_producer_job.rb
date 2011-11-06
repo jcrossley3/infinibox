@@ -7,7 +7,7 @@ require 'torquebox-core'
 require 'torquebox-messaging'
 #require 'jboss-logging-3.0.1.GA.jar'   # added to fix 2.x build 552
 require 'torquebox-cache'              # added per 2.x changes
-require 'active_support/cache/torque_box_store'
+#require 'active_support/cache/torque_box_store'
 
 # in domain mode, http://localhost:8090/jboss-osgi/config
 # contains a system property: jboss.node.name = server-01
@@ -25,21 +25,24 @@ class JmsProducerJob
 
     @queue = TorqueBox::Messaging::Queue.new( @options[:local_queue] )
 
-    replicated_sync_cache # create cache
+    cache # create cache
   end
 
   def run
     sn = log_server_name
 
-    keys = replicated_sync_cache.keys
-    if keys.include? :semaphor.to_s
-      @logger.info "job is currently on #{replicated_sync_cache.get(:semaphor)}"
+    if cache.contains_key? @options[:cache_key]
+      @logger.info "job is currently on #{cache.get( @options[:cache_key] )}" 
     else
-      @logger.info "cluster-app cache does not contain a :semaphor entry"
+      @logger.info "cluster-app cache does not contain a #{ @options[:cache_key] } entry"
     end
 
     if @@primary_node == true
-      replicated_sync_cache.put(:semaphor.to_s, sn, :expires_in => 30.seconds)
+      expires_in = 45.0
+      cache.put( @options[:cache_key], sn, expires_in )
+
+
+      @logger.info "testing cache entry => #{ cache.get( @options[:cache_key] ) }"
 
       files = Dir.glob( @options[:search_path] )
       @logger.info "files size => #{files.size}"
@@ -51,11 +54,11 @@ class JmsProducerJob
     @logger.error "Unexpected exception => #{ex}"
   end
 
-  def replicated_sync_cache
-    @cache = TorqueBox::Infinispan::Cache.new( :name => @options[:cache_name],
-                                               :mode => :replicated,
-                                               :sync => true,
-                                               :transaction_mode => false )
+  def cache
+    @cache ||= TorqueBox::Infinispan::Cache.new( :name => @options[:cache_name],
+                                                 :mode => :replicated,
+                                                 :sync => true,
+                                                 :transaction_mode => false )
     #@cache ||= ActiveSupport::Cache::TorqueBoxStore.new(:name => @options[:cache_name], 
     #                                                    :mode => :replicated, 
     #                                                    :sync => true, 
@@ -69,6 +72,7 @@ class JmsProducerJob
     # TODO: remove use of hard-coded primary node name
     if @options[:data_dir] =~ /standalone/
       @logger.info "primary node binding => #{sn}"
+      @@primary_node = true
     elsif @options[:data_dir] =~ /domain/
       if sn =~ /server-01/
         @logger.info "primary node binding => #{sn}"
