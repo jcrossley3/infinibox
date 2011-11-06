@@ -2,5 +2,6 @@
 :jmx_as_lookup: 'jboss.ws:service=ServerConfig' 
 :local_queue: '/queues/cluster-app/local'
 :cache_name: '//localhost/cluster-app'
+:cache_key: 'server_name'
 :search_path: '/projects/torquebox/**/**'
 :data_dir: '/tools/torquebox/jboss/domain'

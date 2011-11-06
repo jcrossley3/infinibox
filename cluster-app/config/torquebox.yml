@@ -13,6 +13,11 @@ pooling:
       min: 1
       max: 5
 
+#services:
+#  CreateCache:
+#    config: 
+#      cache_name: '//localhost/cluster-app'
+
 tasks:
   Backgroundable:
     concurrency: 0

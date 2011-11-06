@@ -5,9 +5,7 @@ require 'yaml'
 require 'torquebox'
 require 'torquebox-core'
 require 'torquebox-messaging'
-#require 'jboss-logging-3.0.1.GA.jar'   # added to fix 2.x build 552
 require 'torquebox-cache'              # added per 2.x changes
-#require 'active_support/cache/torque_box_store'
 
 # in domain mode, http://localhost:8090/jboss-osgi/config
 # contains a system property: jboss.node.name = server-01
@@ -34,13 +32,11 @@ class JmsProducerJob
     if cache.contains_key? @options[:cache_key]
       @logger.info "job is currently on #{cache.get( @options[:cache_key] )}" 
     else
-      @logger.info "cluster-app cache does not contain a #{ @options[:cache_key] } entry"
+      @logger.info "cluster-app cache does not contain a [#{ @options[:cache_key] }] entry"
     end
 
     if @@primary_node == true
-      expires_in = 45.0
-      cache.put( @options[:cache_key], sn, expires_in )
-
+      cache.put( @options[:cache_key], sn )
 
       @logger.info "testing cache entry => #{ cache.get( @options[:cache_key] ) }"
 
@@ -59,10 +55,6 @@ class JmsProducerJob
                                                  :mode => :replicated,
                                                  :sync => true,
                                                  :transaction_mode => false )
-    #@cache ||= ActiveSupport::Cache::TorqueBoxStore.new(:name => @options[:cache_name], 
-    #                                                    :mode => :replicated, 
-    #                                                    :sync => true, 
-    #                                                     :transaction_mode => :non_transactional)
   end
   
   def log_server_name
