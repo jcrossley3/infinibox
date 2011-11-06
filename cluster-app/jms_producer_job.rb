@@ -5,7 +5,7 @@ require 'yaml'
 require 'torquebox'
 require 'torquebox-core'
 require 'torquebox-messaging'
-require 'torquebox-cache'              # added per 2.x changes
+require 'torquebox-cache'
 
 # in domain mode, http://localhost:8090/jboss-osgi/config
 # contains a system property: jboss.node.name = server-01
@@ -20,26 +20,20 @@ class JmsProducerJob
     @options = YAML::load( File.open( File.join('/projects/infinibox/cluster-app/config', 'cluster-app.yml') ))
 
     @logger = TorqueBox::Logger.new( self.class )
-
     @queue = TorqueBox::Messaging::Queue.new( @options[:local_queue] )
-
-    cache # create cache
   end
 
   def run
     sn = log_server_name
+    @logger.info "running => #{sn}"
 
     if cache.contains_key? @options[:cache_key]
       @logger.info "job is currently on #{cache.get( @options[:cache_key] )}" 
     else
-      @logger.info "cluster-app cache does not contain a [#{ @options[:cache_key] }] entry"
+      if @@primary_node cache.put( @options[:cache_key], sn )
     end
-
+  
     if @@primary_node == true
-      cache.put( @options[:cache_key], sn )
-
-      @logger.info "testing cache entry => #{ cache.get( @options[:cache_key] ) }"
-
       files = Dir.glob( @options[:search_path] )
       @logger.info "files size => #{files.size}"
 
