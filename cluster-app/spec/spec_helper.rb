@@ -1,4 +1,4 @@
-require 'libs.rb'
+require File.dirname(__FILE__) + '/libs'
 require 'rubygems'
 require 'torquespec'
 
