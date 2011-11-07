@@ -1,0 +1,24 @@
+--- 
+application: 
+  root: /projects/infinibox/cluster-app/spec/..
+  env: development
+web: 
+  context: /cluster-app
+  static: public
+pooling: 
+  messaging: 
+    min: 1
+    max: 5
+services: 
+  CreateCache: 
+    config: 
+      cache_name: //localhost/cluster-app
+  TorqueSpec::Daemon: 
+    argv: 
+      - spec
+    pwd: /projects/infinibox/cluster-app
+    spec_dir: 
+environment: 
+  RUBYLIB: /tools/torquebox/jruby/lib/ruby/gems/1.8/gems/torquespec-0.4.3/lib:/tools/torquebox/jruby/lib/ruby/gems/1.8/gems/rspec-expectations-2.7.0/lib:/tools/torquebox/jruby/lib/ruby/gems/1.8/gems/rspec-core-2.7.1/lib:/tools/torquebox/jruby/lib/ruby/gems/1.8/gems/rspec-mocks-2.7.0/lib:/tools/torquebox/jruby/lib/ruby/gems/1.8/gems/rspec-2.7.0/lib:/tools/torquebox/jruby/lib/ruby/gems/1.8/gems/diff-lcs-1.1.3/lib
+ruby: 
+  version: "1.8"
