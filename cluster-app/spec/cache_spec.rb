@@ -25,13 +25,17 @@ describe "cluster-app-rspec" do
     require 'torquebox-core'
     require 'torquebox-cache'
  
-    before(:each) do
+    before :each do
       @cache = TorqueBox::Infinispan::Cache.new( :name => '//localhost/cluster-app' )
+    end
+
+    after :each do
+      @cache.clear
     end
 
     it "should accept and return strings" do 
       @cache.put('foo', 'bar').should be_true
-      #@cache.get('foo').should == 'bar'
+      @cache.get('foo').should == 'bar'
     end 
   end
 end 
