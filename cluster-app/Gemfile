@@ -8,3 +8,5 @@ gem 'torquebox', '~> 2.x.incremental'
 gem 'torquebox-core', '~> 2.x.incremental'
 gem 'torquebox-messaging', '~> 2.x.incremental'
 gem 'activesupport'
+
+gem 'torquespec', '>=0.4.5'
