@@ -17,7 +17,7 @@ class JmsProducerJob
   def initialize
     @@primary_node = false
 
-    @options = YAML::load( File.open( File.join('/projects/infinibox/cluster-app/config', 'cluster-app.yml') ))
+    @options = YAML::load( File.open( File.join(File.dirname(__FILE__), 'config', 'cluster-app.yml') ))
 
     @logger = TorqueBox::Logger.new( self.class )
     @queue = TorqueBox::Messaging::Queue.new( @options[:local_queue] )
@@ -30,7 +30,7 @@ class JmsProducerJob
     if cache.contains_key? @options[:cache_key]
       @logger.info "job is currently on #{cache.get( @options[:cache_key] )}" 
     else
-      if @@primary_node cache.put( @options[:cache_key], sn )
+      cache.put( @options[:cache_key], sn ) if @@primary_node 
     end
   
     if @@primary_node == true
